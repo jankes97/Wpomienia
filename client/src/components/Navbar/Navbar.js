@@ -1,35 +1,40 @@
-import React, {useState, usseEffect} from "react";
+import React, { useState, useEffect } from 'react';
+import { AppBar, Typography, Toolbar, Avatar, Button } from '@material-ui/core';
 import { Link, useHistory, useLocation } from 'react-router-dom';
-import { AppBar, Avatar, Button, Toolbar, Typography } from '@material-ui/core';
 import { useDispatch } from 'react-redux';
+import decode from 'jwt-decode';
 
-import useStyles from './styles.js';
 import memories from '../../images/memories.png';
+import * as actionType from '../../constants/actionTypes';
+import useStyles from './styles';
 
-const Navbar = () =>{
-    const classes = useStyles();
-    const dispatch = useDispatch();
-    const history = useHistory();
-    const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
-    const logout = () => {
-        dispatch({ type: 'LOGOUT' });
+const Navbar = () => {
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const history = useHistory();
+  const classes = useStyles();
 
-        history.push('/auth');
+  const logout = () => {
+    dispatch({ type: actionType.LOGOUT });
 
-        setUser(null);
-    };
+    history.push('/auth');
 
-    // useEffect(() => {
-    //     const token = user?.token;
+    setUser(null);
+  };
 
-    //     if (token) {
-    //         const decodedToken = decode(token);
+  useEffect(() => {
+    const token = user?.token;
 
-    //         if (decodedToken.exp * 1000 < new Date().getTime()) logout();
-    //     }
+    if (token) {
+      const decodedToken = decode(token);
 
-    //     setUser(JSON.parse(localStorage.getItem('profile')));
-    // }, [location]);
+      if (decodedToken.exp * 1000 < new Date().getTime()) logout();
+    }
+
+    setUser(JSON.parse(localStorage.getItem('profile')));
+  },// eslint-disable-next-line
+    [location]);
 
     return (
         <AppBar className={classes.appBar} position="static" color="inherit">

@@ -1,47 +1,62 @@
 import React, { useState } from 'react';
-import { Avatar, Button, Paper, Grid, Typography, Container, TextField} from '@material-ui/core';
-import { GoogleLogin } from 'react-google-login';
+import { Avatar, Button, Paper, Grid, Typography, Container} from '@material-ui/core';
 import { useDispatch } from 'react-redux';
+// import { GoogleLogin } from 'react-google-login';
 import { useHistory } from 'react-router-dom';
-import Icon from './icon.js';
+// import Icon from './icon.js';
 
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import useStyles from './styles';
 import Input from './Input.js';
-import { AUTH } from '../../constants/actionTypes';
+import { signin, signup } from '../../actions/auth'
+//import { AUTH } from '../../constants/actionTypes';
+
+const InitialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' }
 
 const Auth = () => {
     const classes = useStyles();
     const [showPassword, setShowPassword] = useState(false);
     const [isSignup, setIsSignup] = useState(false);
+    const [formData, setFormData] = useState(InitialState);
     const dispatch = useDispatch();
     const history = useHistory();
 
     const handleShowPassword = () => setShowPassword((prevShowPassword) => !prevShowPassword); 
 
-    const handleSubmit = () => {};
+    const handleSubmit = (e) => {
+        e.preventDefault();
 
-    const handleChange = () => {};
+        if(isSignup) {
+            dispatch(signup(formData, history))
+        } else {
+            dispatch(signin(formData, history))
+
+        }
+    };
+
+    const handleChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value })
+    };
 
     const switchMode = () => {
         setIsSignup((prevIsSignup) => !prevIsSignup);
-        handleShowPassword(false);
+        setShowPassword(false);
     };
 
-    const googleSuccess = async (res) => {
-        const result = res?.profileObj;
-        const token = res?.tokenId;
+    // const googleSuccess = async (res) => {
+    //     const result = res?.profileObj;
+    //     const token = res?.tokenId;
 
-        try {
-            dispatch({ type: AUTH, data: { result, token } });
+    //     try {
+    //         dispatch({ type: AUTH, data: { result, token } });
 
-            history.push('/');
-        } catch (error) {
-            console.log(error);
-        }
-    }; 
+    //         history.push('/');
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // }; 
 
-    const googleError = () => alert('Nieudane logowanie. Spróbuj ponownie');
+    //const googleError = () => alert('Nieudane logowanie. Spróbuj ponownie');
 
 
     return(
@@ -68,14 +83,14 @@ const Auth = () => {
                     <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
                         {isSignup ? 'Rejestracja' : 'Logowanie'}
                     </Button>
-                    <GoogleLogin clientId="126003661085-15ud7rvl7rj57rb1ih7flif77uo0t666.apps.googleusercontent.com" //klucz z api google do logowania przez google 
+                    {/* <GoogleLogin clientId="126003661085-15ud7rvl7rj57rb1ih7flif77uo0t666.apps.googleusercontent.com" //klucz z api google do logowania przez google 
                     render={(renderProps) => (
                             <Button className={classes.googleButton} color='primary' fullWidth onClick={renderProps.onClick} disabled={renderProps.disabled} startIcon={<Icon />} variant="contained"> Zaloguj przez konto Google</Button>
                         )}
                         onSuccess={googleSuccess}
                         onFailure={googleError}
                         cookiePolicy="single_host_origin"
-                    />
+                    /> */}
                     <Grid container justify="flex-end">
                         <Grid item>
                             <Button onClick={switchMode}>

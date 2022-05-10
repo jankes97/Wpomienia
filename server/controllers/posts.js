@@ -28,9 +28,9 @@ export const getPost = async (req, res) => {
 }
 
 export const createPost = async (req, res) => {
-    const { title, message, selectedFile, creator, tags } = req.body;
+    const post = req.body;
 
-    const newPostMessage = new PostMessage({ title, message, selectedFile, creator, tags })
+    const newPostMessage = new PostMessage({ ...post, creator: req.userId, createdAt: new Date().toISOString() })
 
     try {
         await newPostMessage.save();
@@ -45,7 +45,7 @@ export const updatePost = async (req, res) => {
     const { id } = req.params;
     const { title, message, creator, selectedFile, tags } = req.body;
     
-    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`Brak posta z id: ${id}`);
 
     const updatedPost = { creator, title, message, tags, selectedFile, _id: id };
 
@@ -57,23 +57,33 @@ export const updatePost = async (req, res) => {
 export const deletePost = async (req, res) => {
     const { id } = req.params;
 
-    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`Brak posta z id: ${id}`);
 
     await PostMessage.findByIdAndRemove(id);
 
-    res.json({ message: "Post deleted successfully." });
+    res.json({ message: "Post został pomyślnie usunięty." });
 }
 
 export const likePost = async (req, res) => {
     const { id } = req.params;
 
-    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
+    if (!req.userId) {
+        return res.json({ message: "Nieuwierzytelniony." });
+      }
+
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`Brak posta z id: ${id}`);
     
     const post = await PostMessage.findById(id);
 
-    const updatedPost = await PostMessage.findByIdAndUpdate(id, { likeCount: post.likeCount + 1 }, { new: true });
-    
-    res.json(updatedPost);
+    const index = post.likes.findIndex((id) => id ===String(req.userId));
+
+    if (index === -1) {
+      post.likes.push(req.userId);
+    } else {
+      post.likes = post.likes.filter((id) => id !== String(req.userId));
+    }
+    const updatedPost = await PostMessage.findByIdAndUpdate(id, post, { new: true });
+    res.status(200).json(updatedPost);
 }
 
 
