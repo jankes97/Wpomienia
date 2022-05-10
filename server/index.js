@@ -20,7 +20,7 @@ const CONNECTION_URL = 'mongodb+srv://webmaster:webmaseter!23@cluster0.xmmsl.mon
 const PORT = process.env.PORT|| 5000;
 
 mongoose.connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(() => app.listen(PORT, () => console.log(`Server Running on Port: http://localhost:${PORT}`)))
-  .catch((error) => console.log(`${error} did not connect`));
+  .then(() => app.listen(PORT, () => console.log(`Serwer uruchomiony: http://localhost:${PORT}`)))
+  .catch((error) => console.log(`${error} Nie działa!`));
 
 mongoose.set('useFindAndModify', false);

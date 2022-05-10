@@ -3,10 +3,10 @@ import { AppBar, Typography, Toolbar, Avatar, Button } from '@material-ui/core';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import decode from 'jwt-decode';
-
+import useStyles from './styles';
 import memories from '../../images/memories.png';
 import * as actionType from '../../constants/actionTypes';
-import useStyles from './styles';
+
 
 const Navbar = () => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
@@ -33,8 +33,7 @@ const Navbar = () => {
     }
 
     setUser(JSON.parse(localStorage.getItem('profile')));
-  },// eslint-disable-next-line
-    [location]);
+  }, [location]);
 
     return (
         <AppBar className={classes.appBar} position="static" color="inherit">
