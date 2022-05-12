@@ -1,4 +1,4 @@
-import bcrypt from 'bcryptjs'; //to funkcja do haszowania hasła
+import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 import UserModal from "../models/user.js";
@@ -15,7 +15,7 @@ export const signin = async (req, res) => {
 
     const isPasswordCorrect = await bcrypt.compare(password, oldUser.password);
 
-    if (!isPasswordCorrect) return res.status(400).json({ message: "Hasło nie są takie same" });
+    if (!isPasswordCorrect) return res.status(400).json({ message: "Hasło nie są takie same." });
 
     const token = jwt.sign({ email: oldUser.email, id: oldUser._id }, secret, { expiresIn: "1h" });
 
