@@ -1,4 +1,5 @@
-# Memories
+# Wspomnienia
 
 Setup:
-- run ```npm i && npm start``` for both client and server side to start the app
+cd client -> npm i / yarn install -> npm start /yarn start
+cd server -> npm i / yarn install -> npm start /yarn start
