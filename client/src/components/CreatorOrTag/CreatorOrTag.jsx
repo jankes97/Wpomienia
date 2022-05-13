@@ -6,11 +6,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import Post from '../Posts/Post/Post';
 import { getPostsByCreator, getPostsBySearch } from '../../actions/posts';
 
+import useStyles from './styles';
+
 const CreatorOrTag = () => {
   const { name } = useParams();
   const dispatch = useDispatch();
   const { posts, isLoading } = useSelector((state) => state.posts);
-
+  const classes = useStyles();
   const location = useLocation();
 
   useEffect(() => {

@@ -44,9 +44,11 @@ const Navbar = () => {
       </Link>
       <Toolbar className={classes.toolbar}>
         {user?.result ? (
-          <div className={classes.profile}>
-            <Avatar className={classes.purple} alt={user?.result.name} src={user?.result.imageUrl}>{user?.result.name.charAt(0)}</Avatar>
-            <Typography className={classes.userName} variant="h6">{user?.result.name}</Typography>
+            <div className={classes.profile}>
+                <Avatar className={classes.purple} alt={user?.result.name} src={user?.result.imageUrl}>{user?.result.name.charAt(0)}</Avatar>
+              <Link to={`creators/${user?.result.name}`}>
+                <Typography className={classes.userName} variant="h6">{user?.result.name}</Typography>
+              </Link>
             <Button variant="contained" className={classes.logout} color="secondary" onClick={logout}>Wyloguj</Button>
           </div>
         ) : (

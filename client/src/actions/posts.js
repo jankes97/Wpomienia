@@ -64,9 +64,11 @@ export const createPost = (post, history) => async (dispatch) => {
 
 export const updatePost = (id, post) => async (dispatch) => {
   try {
+    dispatch({ type: START_LOADING });
     const { data } = await api.updatePost(id, post);
 
     dispatch({ type: UPDATE, payload: data });
+    window.location.reload(false); // odswierza strone po zmianie
   } catch (error) {
     console.log(error);
   }

@@ -27,7 +27,7 @@ export default makeStyles((theme) => ({
   toolbar: {
     display: 'flex',
     justifyContent: 'flex-end',
-    width: '400px',
+    width: '500px',
     [theme.breakpoints.down('sm')]: {
       width: 'auto',
     },
@@ -35,7 +35,7 @@ export default makeStyles((theme) => ({
   profile: {
     display: 'flex',
     justifyContent: 'space-between',
-    width: '400px',
+    width: '500px',
     alignItems: 'center',
     [theme.breakpoints.down('sm')]: {
       width: 'auto',
@@ -47,10 +47,13 @@ export default makeStyles((theme) => ({
     marginLeft: '20px',
   },
   userName: {
-    display: 'flex',
+    textDecoration: 'none',
+    color: 'black',
+    display: 'inline',
     alignItems: 'center',
     textAlign: 'center',
   },
+
   brandContainer: {
     display: 'flex',
     alignItems: 'center',
