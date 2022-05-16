@@ -66,7 +66,7 @@ const Form = ({ currentId, setCurrentId }) => {
           <ChipInput
             name="tags"
             variant="outlined"
-            label="Tags ('przecinek' oddziela)"
+            label="Tags ('Enter' oddziela)"
             fullWidth
             value={postData.tags}
             onAdd={(chip) => handleAddChip(chip)}
