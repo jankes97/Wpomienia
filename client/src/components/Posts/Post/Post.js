@@ -13,7 +13,7 @@ import useStyles from './styles';
 
 const Post = ({ post, setCurrentId }) => {
   const user = JSON.parse(localStorage.getItem('profile'));
-  const [likes, setLikes] = useState(post?.likes);
+  const [setLikes] = useState(post?.likes);
   const dispatch = useDispatch();
   const history = useHistory();
   const classes = useStyles();

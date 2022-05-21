@@ -22,6 +22,7 @@ const Navbar = () => {
     history.push('/auth');
 
     setUser(null);
+    console.log('Udane wylogowanie.')
   };
 
   useEffect(() => {

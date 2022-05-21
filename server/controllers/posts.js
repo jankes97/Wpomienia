@@ -9,8 +9,11 @@ export const getPosts = async (req, res) => {
     const { page } = req.query;
     
     try {
-        const LIMIT = 8; //iloś postów na stronie
-        const startIndex = (Number(page) - 1) * LIMIT; // get the starting index of every page
+        //iloś postów na stronie
+        const LIMIT = 4; 
+        
+        // początkowy indeks każdej strony
+        const startIndex = (Number(page) - 1) * LIMIT; 
     
         const total = await PostMessage.countDocuments({});
         const posts = await PostMessage.find().sort({ _id: -1 }).limit(LIMIT).skip(startIndex);
@@ -77,7 +80,7 @@ export const updatePost = async (req, res) => {
     const { id } = req.params;
     const { title, message, creator, selectedFile, tags } = req.body;
     
-    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`Brak posta z tym id: ${id}`);
 
     const updatedPost = { creator, title, message, tags, selectedFile, _id: id };
 
@@ -89,21 +92,21 @@ export const updatePost = async (req, res) => {
 export const deletePost = async (req, res) => {
     const { id } = req.params;
 
-    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`Brak posta z tym id: ${id}`);
 
     await PostMessage.findByIdAndRemove(id);
 
-    res.json({ message: "Post deleted successfully." });
+    res.json({ message: "Post został pomyślnie usunięty." });
 }
 
 export const likePost = async (req, res) => {
     const { id } = req.params;
 
     if (!req.userId) {
-        return res.json({ message: "Unauthenticated" });
+        return res.json({ message: "Nie zarejestrowany użytkownik" });
       }
 
-    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`No post with id: ${id}`);
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).send(`Brak posta z tym id: ${id}`);
     
     const post = await PostMessage.findById(id);
 

@@ -47,6 +47,7 @@ const SignUp = () => {
       dispatch({ type: AUTH, data: { result, token } });
 
       history.push('/');
+      console.log('Udane logowanie po przez konto google')
     } catch (error) {
       console.log(error);
     }
@@ -68,7 +69,7 @@ const SignUp = () => {
             { isSignup && (
             <>
               <Input name="firstName" label="Imię" handleChange={handleChange} autoFocus half />
-              <Input name="lastName" label="Last Name" handleChange={handleChange} half />
+              <Input name="lastName" label="Nazwisko" handleChange={handleChange} half />
             </>
             )}
             <Input name="email" label="Email" handleChange={handleChange} type="email" />
@@ -78,8 +79,10 @@ const SignUp = () => {
           <Button type="submit" fullWidth variant="contained" color="primary" className={classes.submit}>
             {isSignup ? 'Rejestracja' : 'Logowanie' }
           </Button>
+
+          {/* komponent do logowania się po przez konto Google */}
           <GoogleLogin
-            clientId="126003661085-15ud7rvl7rj57rb1ih7flif77uo0t666.apps.googleusercontent.com"
+            clientId="564033717568-bu2nr1l9h31bhk9bff4pqbenvvoju3oq.apps.googleusercontent.com"
             render={(renderProps) => (
               <Button className={classes.googleButton} color="primary" fullWidth onClick={renderProps.onClick} disabled={renderProps.disabled} startIcon={<Icon />} variant="contained">
                 Loguj przez Google

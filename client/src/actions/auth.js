@@ -8,7 +8,9 @@ export const signin = (formData, router) => async (dispatch) => {
     dispatch({ type: AUTH, data });
 
     router.push('/');
+    console.log('Logowanie udane');
   } catch (error) {
+    console.log('Nieudane logowanie. Spróbuj ponownie');
     console.log(error);
   }
 };
@@ -20,7 +22,9 @@ export const signup = (formData, router) => async (dispatch) => {
     dispatch({ type: AUTH, data });
 
     router.push('/');
+    console.log('Rejestracja udane');
   } catch (error) {
+    console.log('Nieudana rejestracja. Spróbuj ponownie');
     console.log(error);
   }
 };
