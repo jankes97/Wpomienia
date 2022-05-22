@@ -10,7 +10,7 @@ export const getPosts = async (req, res) => {
     
     try {
         //iloś postów na stronie
-        const LIMIT = 4; 
+        const LIMIT = 8; 
         
         // początkowy indeks każdej strony
         const startIndex = (Number(page) - 1) * LIMIT; 
