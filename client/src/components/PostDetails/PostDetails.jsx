@@ -19,6 +19,7 @@ const Post = () => {
     dispatch(getPost(id));
   }, [id]);
 
+  //rekomendowanie postów
   useEffect(() => {
     if (post) {
       dispatch(getPostsBySearch({ search: 'none', tags: post?.tags.join(',') }));
@@ -37,7 +38,7 @@ const Post = () => {
     );
   }
 
-  const recommendedPosts = posts.filter(({ _id }) => _id !== post._id);
+  const recommendedPosts = posts.filter(({ _id }) => _id !== post._id);   //rekomendowanie postów
 
   return (
     <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
